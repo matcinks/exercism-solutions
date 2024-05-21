@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 class BirdWatcher {
     private final int[] birdsPerDay;
@@ -7,51 +8,34 @@ class BirdWatcher {
     }
 
     public int[] getLastWeek() {
-        return birdsPerDay;
-//        throw new UnsupportedOperationException("Please implement the BirdWatcher.getLastWeek() method");
+            return birdsPerDay;
     }
 
     public int getToday() {
-        return birdsPerDay[birdsPerDay.length - 1];
-//        throw new UnsupportedOperationException("Please implement the BirdWatcher.getToday() method");
+        return birdsPerDay.length == 0 ? 0 : birdsPerDay[birdsPerDay.length - 1];
     }
 
     public void incrementTodaysCount() {
-        int todays = getToday();
-        birdsPerDay[birdsPerDay.length - 1] = todays + 1;
-//        throw new UnsupportedOperationException("Please implement the BirdWatcher.incrementTodaysCount() method");
+        int todaysIndex = birdsPerDay.length - 1;
+        birdsPerDay[todaysIndex] = ++birdsPerDay[todaysIndex];
     }
 
     public boolean hasDayWithoutBirds() {
-        for (int j : birdsPerDay) {
-            if (j == 0) {
-                return true;
-            }
-        }
-        return false;
-//        throw new UnsupportedOperationException("Please implement the BirdWatcher.hasDayWithoutBirds() method");
+        return Arrays.stream(birdsPerDay)
+                .filter(count -> count == 0)
+                .findAny()
+                .isPresent();
     }
 
     public int getCountForFirstDays(int numberOfDays) {
-        int sum = 0;
-        if (numberOfDays > birdsPerDay.length) {
-            numberOfDays = birdsPerDay.length;
-        }
-        for (int i = 0; i < numberOfDays; i++) {
-            sum += birdsPerDay[i];
-        }
-        return sum;
-//        throw new UnsupportedOperationException("Please implement the BirdWatcher.getCountForFirstDays() method");
+        return Arrays.stream(birdsPerDay)
+                .limit(numberOfDays)
+                .sum();
     }
 
     public int getBusyDays() {
-        int count = 0;
-        for (int visits: birdsPerDay) {
-            if (visits >= 5) {
-                count++;
-            }
-        }
-        return count;
-//        throw new UnsupportedOperationException("Please implement the BirdWatcher.getBusyDays() method");
+        return (int)Arrays.stream(birdsPerDay)
+                .filter(visits -> visits >= 5)
+                .count();
     }
 }
