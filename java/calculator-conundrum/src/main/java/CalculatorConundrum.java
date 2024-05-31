@@ -1,24 +1,26 @@
 
 class CalculatorConundrum {
     public String calculate(int operand1, int operand2, String operation) {
-        int result = -1;
-        String[] operations = {"+", "*", "/"};
+        validation(operation);
 
-        if (operation == null) throw new IllegalArgumentException("Operation cannot be null");
-        if (operation.isEmpty()) throw new IllegalArgumentException("Operation cannot be empty");
-        if (!isValidOperation(operation, operations)) throw new IllegalOperationException("Operation '" + operation + "' does not exist");
-
-        result = switch (operation) {
+        int result = switch (operation) {
             case "+" -> addition(operand1, operand2);
             case "*" -> multiplication(operand1, operand2);
             case "/" -> division(operand1, operand2);
-            default -> result;
+            default -> -1;
         };
 
         return operand1 + " " + operation + " " + operand2 + " = " + result;
     }
 
-    private static boolean isValidOperation(String operation, String[] operations) {
+    private static void validation(String operation) {
+        String[] validOperations = {"+", "*", "/"};
+        if (operation == null) throw new IllegalArgumentException("Operation cannot be null");
+        if (operation.isEmpty()) throw new IllegalArgumentException("Operation cannot be empty");
+        if (!isValidOperand(operation, validOperations)) throw new IllegalOperationException("Operation '" + operation + "' does not exist");
+    }
+
+    private static boolean isValidOperand(String operation, String[] operations) {
         boolean result = false;
         for (String o : operations) {
             if (o.equals(operation)) {
