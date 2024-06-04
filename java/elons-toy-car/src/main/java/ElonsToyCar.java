@@ -1,27 +1,27 @@
 public class ElonsToyCar {
 
-    private int distance = 0;
-    private int battery = 100;
+    private int drivenDistance;
+    private int batteryCapacity = 100;
 
     public static ElonsToyCar buy() {
         return new ElonsToyCar();
     }
 
     public String distanceDisplay() {
-        return "Driven " + distance + " meters";
+        return String.format("Driven %d meters", this.drivenDistance);
     }
 
     public String batteryDisplay() {
-        if (battery <= 0) {
+        if (this.batteryCapacity <= 0) {
             return "Battery empty";
         }
-        return "Battery at " + battery + "%";
+        return String.format("Battery at %d%%", this.batteryCapacity);
     }
 
     public void drive() {
-        if (battery > 0) {
-            distance += 20;
-            battery -= 1;
+        if (this.batteryCapacity != 0) {
+            this.drivenDistance += 20;
+            this.batteryCapacity--;
         }
     }
 }
