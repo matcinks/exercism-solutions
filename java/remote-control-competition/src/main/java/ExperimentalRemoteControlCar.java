@@ -6,6 +6,6 @@ public class ExperimentalRemoteControlCar implements RemoteControlCar {
     }
 
     public int getDistanceTravelled() {
-        return this.distance;
+        return distance;
     }
 }
